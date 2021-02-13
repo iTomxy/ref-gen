@@ -6,7 +6,7 @@ The core of this script is parsing the bibtex entries with regular expressions^[
 
 # Environment Requirement
 
-Python 3 only (tested under Python 3.7.4 on Windows 7)
+[Python 3](https://www.python.org/) only (tested under Python 3.7.4 on Windows 7)
 
 # Usage
 
