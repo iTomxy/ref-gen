@@ -60,7 +60,7 @@ The abbreviations of conferences & journals are specified with `JC_ABBR` in the 
 "<ABBR>": ["<RECSTR_1>", ...]
 ```
 
-where `<ABBR>` denotes the abbreviation, and `<RECSTR_*>` denotes a *recognizing string* for a conferences / journal name.  For example, for a paper from the [CVPR](Conference on Computer Vision and Pattern Recognition) conference, the `booktitle` filed may look like:
+where `<ABBR>` denotes the abbreviation, and `<RECSTR_*>` denotes a *recognizing string* for a conference / journal name.  For example, for a paper from the [CVPR](Conference on Computer Vision and Pattern Recognition) conference, the `booktitle` filed may look like:
 
 ```
 2017 IEEE Conference on Computer Vision and Pattern Recognition (CVPR)
@@ -94,7 +94,7 @@ See these two functions for details and re-write them for customization if neede
 
 # Author Patterns
 
-Here are some patterns (and some corresponding examples) of author name I’ve met, one may add more in the `parse_author` function if that’s not supported currently.
+Here are some patterns (and some corresponding examples) of author name I’ve met. One may add more in the `parse_author` function if that’s not supported currently.
 
 `<F>` stands for *family name*, `<M>` for *middle name*, `<G>` for *given name*, `[·]` for *optional*.
 
@@ -114,3 +114,4 @@ Here are some patterns (and some corresponding examples) of author name I’ve m
 # References
 
 1. [Python3 正则表达式](https://www.runoob.com/python3/python3-reg-expressions.html#flags)
+2. [由bibtex生成引用文献字符串](https://blog.csdn.net/HackerTom/article/details/113802147)
