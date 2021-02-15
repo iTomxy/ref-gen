@@ -2,7 +2,7 @@
 
 A Python script for generating reference string by parsing bibtex.
 
-The core of this script is parsing the bibtex entries with [regular expressions](https://www.runoob.com/python3/python3-reg-expressions.html#flags) for structural information, with which one can generate the reference string in whatever format needed.
+The core of this script is parsing the bibtex entries with [regular expressions](https://www.runoob.com/python3/python3-reg-expressions.html) for structural information, with which one can generate the reference string in whatever format needed.
 
 # Environment Requirement
 
