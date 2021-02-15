@@ -113,4 +113,4 @@ Here are some patterns (and some corresponding examples) of author name I’ve m
 
 # References
 
-2. [由bibtex生成引用文献字符串](https://blog.csdn.net/HackerTom/article/details/113802147)
+1. [由bibtex生成引用文献字符串](https://blog.csdn.net/HackerTom/article/details/113802147)
