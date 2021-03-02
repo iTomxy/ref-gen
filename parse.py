@@ -51,7 +51,7 @@ JC_ABBR = {
     "TCSVT": ["Transactions on Circuits and Systems for Video Technology",
               "Trans. Cir. and Sys. for Video Technol."],
     "TIP": ["Transactions on Image Processing"],
-    "TMM": ["Transactions on Multimedia"],
+    "TMM": ["IEEE Transactions on Multimedia"],
     "TNNLS": ["Transactions on Neural Networks and Learning Systems"],
     "TOG": ["Transactions on Graphics",
             "ACM Trans. Graph."],
