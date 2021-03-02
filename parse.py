@@ -21,6 +21,8 @@ args = parser.parse_args()
 
 # journal/conference abbreviation
 JC_ABBR = {
+    # preprint
+    "arXiv": ["arXiv preprint", "arXiv:"],
     # conference
     "3DV": ["International Conference on 3D Vision"],
     "AAAI": ["AAAI Conference on Artificial Intelligence"],
