@@ -248,6 +248,11 @@ def parse_title(title):
 
 def parse_booktitle(s):
     s_low = s.lower()
+
+    # special deal for arXiv
+    if "arxiv" in s_low:
+        return s
+
     bt = None
     for _abbr in JC_ABBR:
         if _abbr in s:
@@ -270,7 +275,9 @@ def gen_ref(cite_obj):
     _author = less_author(cite_obj.author)
     res = "{}. {}".format(_author, cite_obj.title)
 
-    if "conference" == cite_obj.paper_type:
+    if "arxiv" in cite_obj.booktitle.lower():
+        res += ". {}({})".format(cite_obj.booktitle, cite_obj.year)
+    elif "conference" == cite_obj.paper_type:
         res += "[C]//{} {}".format(cite_obj.booktitle, cite_obj.year)
     elif "journal" == cite_obj.paper_type:
         res += "[J]. {}, {}".format(cite_obj.booktitle, cite_obj.year)
