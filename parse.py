@@ -97,7 +97,7 @@ class Cite:
 
 def parse_type(bib):
     # pattern: @<type>{<ref>, ... }
-    match_pat = r"\@([a-zA-Z]+)\{([\w\.\/]+)\,.*\}"
+    match_pat = r"\@([a-zA-Z]+)\{([\w\.\/\+]+)\,.*\}"
     m_obj = re.match(match_pat, bib, re.S)
     assert m_obj is not None
     paper_type = m_obj.group(1).lower()
