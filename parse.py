@@ -6,18 +6,21 @@ import platform
 import re
 
 
-if "Windows" == platform.system():
-    os.system("cls")
-elif "Linux" == platform.system():
-    os.system("clear")
-
-
 parser = argparse.ArgumentParser(description='ref')
 parser.add_argument('-f', type=str, default="bib.txt", help="input bibtex")
 parser.add_argument('-o', type=str, default="ref.txt", help="output ref")
+parser.add_argument('-a', action='store_true', help='append mode')
 parser.add_argument('--n_name', type=int, default=3,
                     help="#author threshold, <=0 means show all authors")
 args = parser.parse_args()
+
+
+if not args.a:
+    if "Windows" == platform.system():
+        os.system("cls")
+    elif "Linux" == platform.system():
+        os.system("clear")
+
 
 # journal/conference abbreviation
 JC_ABBR = {
@@ -360,8 +363,11 @@ for i, _item in enumerate(item_list):
 
 ref = gen_ref(cite)
 print("\n{}".format(ref))
-with open(args.o, "w") as f:
+w_mode = "a" if args.a else "w"
+with open(args.o, w_mode) as f:
     f.write("{}\n".format(ref))
+    if args.a:
+        f.write("\n")
 
-if "Windows" == platform.system():
+if (not args.a) and ("Windows" == platform.system()):
     os.system("start {}".format(args.o))
