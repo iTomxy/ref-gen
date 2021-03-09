@@ -33,9 +33,9 @@ python parse.py -o out.txt
 python parse.py -f bib3.txt -o abc.txt
 ```
 
-## append mode
+## appending mode
 
-By using `-a`, the script `append` the new ref string to the output file.
+By using `-a`, the script **append** the new ref string to the output file.
 
 This parameter is useful in batch parsing. See *parse.bat* for example.
 

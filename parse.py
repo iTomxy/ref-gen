@@ -9,7 +9,7 @@ import re
 parser = argparse.ArgumentParser(description='ref')
 parser.add_argument('-f', type=str, default="bib.txt", help="input bibtex")
 parser.add_argument('-o', type=str, default="ref.txt", help="output ref")
-parser.add_argument('-a', action='store_true', help='append mode')
+parser.add_argument('-a', action='store_true', help='turn on appending mode')
 parser.add_argument('--n_name', type=int, default=3,
                     help="#author threshold, <=0 means show all authors")
 args = parser.parse_args()
