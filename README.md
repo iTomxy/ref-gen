@@ -33,6 +33,12 @@ python parse.py -o out.txt
 python parse.py -f bib3.txt -o abc.txt
 ```
 
+## append mode
+
+By using `-a`, the script `append` the new ref string to the output file.
+
+This parameter is useful in batch parsing. See *parse.bat* for example.
+
 ## specify truncation length of author list
 
 By default, this script will truncate the author list by `3`, which means if there are more than `3` authors, only the first `3` will be shown, and the rest are represented by an `et al.`.
