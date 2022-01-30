@@ -1,9 +1,0 @@
-@inproceedings{han2019y2seq2seq,
-  title={Y2Seq2Seq: Cross-modal representation learning for 3D shape and text by joint reconstruction and prediction of view and word sequences},
-  author={Han, Zhizhong and Shang, Mingyang and Wang, Xiyang and Liu, Yu-Shen and Zwicker, Matthias},
-  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
-  volume={33},
-  number={01},
-  pages={126--133},
-  year={2019}
-}

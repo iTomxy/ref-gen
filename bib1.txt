@@ -1,9 +1,0 @@
-@article{张磊2017跨媒体语义共享子空间学习研究进展,
-  title={跨媒体语义共享子空间学习研究进展},
-  author={张磊 and 赵耀 and 朱振峰},
-  journal={计算机学报},
-  volume={40},
-  number={6},
-  pages={1394--1421},
-  year={2017}
-}
