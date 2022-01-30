@@ -1,108 +1,58 @@
 # ref-gen
 
-A Python script for generating reference string by parsing bibtex.
+[English version](README-en.md)
 
-The core of this script is parsing the bibtex entries with [regular expressions](https://www.runoob.com/python3/python3-reg-expressions.html) for structural information, with which one can generate the reference string in whatever format needed.
+用 Python 根据 bibtex 文件生成引用字符串，用于中文论文。目前只支持英文 bibtex。
 
-# Environment Requirement
+# 依赖
 
-[Python 3](https://www.python.org/) only (tested under Python 3.7.4 on Windows 7)
+- [Python 3](https://www.python.org/)
 
-# Usage
+# 用法
 
-## basic usage
+用例见 *parse.bat*。
 
-Put a bibtex in the *bib.txt* in the same directory as *parse.py*, and run:
+## 参数
 
-```shell
-python parse.py
+- `-f`：（可多个）要解析的 .bib 文件、有 .bib 的目录
+- `-o`：输出文件，默认 *ref.txt*。
+- `-v`：verbose，解析过程的 logging。
+- `-s`：对 .bib 文件排序。可在 *parse.py* 自定义排序。
+- `--abbr_author`：将名（given name）和中间名（middle name）改用缩写，如：`Tom` -> `T.`。
+- `--abbr_book_title`：期刊、会议用缩写名，如：`IEEE Conference on Computer Vision and Pattern Recognition` -> `CVPR`。可在 *prior.py* 自定义缩写。
+- `--n_name`：作者列表长度上限，超过则截断并加 `et al`，默认 `-1` 表示不截断。
+
+# 自定义
+
+## 会议、期刊缩写
+
+在 *prior.py* 定义，其中 `ABBR_PRE`、`ABBR_CONF`、`ABBR_JOUR` 分别表示预印（如 arXiv）、会议、期刊的缩写，`ABBR` 是并集。
+
+条目的定义格式形如：
+
+```
+"<缩写>": ["<基因1>", ...]
 ```
 
-it will output the generated reference string in both the terminal and *ref.txt*.
-
-## specify input & output
-
-By default, the input & output files are *bib.txt* and *ref.txt* respectively, one can specify them with `-f` and `-o`:
-
-```shell
-# specify input
-python parse.py -f bib2.txt
-# specify output
-python parse.py -o out.txt
-# specify both
-python parse.py -f bib3.txt -o abc.txt
-```
-
-## appending mode
-
-By using `-a`, the script **append** the new ref string to the output file.
-
-This parameter is useful in batch parsing. See *parse.bat* for example.
-
-## specify truncation length of author list
-
-By default, this script will truncate the author list by `3`, which means if there are more than `3` authors, only the first `3` will be shown, and the rest are represented by an `et al.`.
-
-You can specify this truncation length with `--n_name` parameter:
-
-```shell
-# show first 1 author only
-python parse.py --n_name 1
-# show ALL authors WITHOUT truncation if `n_name` <= 0
-python parse.py --n_name -1
-# or you can also simply feed a large number like `100`
-python parse.py --n_name 100
-```
-
-See the `less_author` function in this script for details.
-
-# Customization
-
-## abbreviations of conferences / journals
-
-The abbreviations of conferences & journals are specified with `JC_ABBR` in the script, each item of which are of format:
-
-```python
-"<ABBR>": ["<RECSTR_1>", ...]
-```
-
-where `<ABBR>` denotes the abbreviation, and `<RECSTR_*>` denotes a *recognizing string* for a conference / journal name.  For example, for a paper from the [CVPR](Conference on Computer Vision and Pattern Recognition) conference, the `booktitle` filed may look like:
+其中 `<缩写>` 就是会议等的目标缩写，如 `CVPR`；「基因」是指用来从 bibtex 的 `booktitle`/`journal` 域中辨认预印、会议和期刊的字符串，如 [CVPR](Conference on Computer Vision and Pattern Recognition) 会议的 `booktitle` 形如：
 
 ```
 2017 IEEE Conference on Computer Vision and Pattern Recognition (CVPR)
 ```
 
-To recognize this conference, in this script, a representative sub-string `Computer Vision and Pattern Recognition` is used for its *recognizing string*, as every time this substring shows up in the `booktitle` field, we’re almost sure that it’s a paper from the *CVPR* conference.
+其中  `Conference on Computer Vision and Pattern Recognition` 就可以作为其「基因」，因为只要出现这个模式，必然是 CVPR 会议。
 
-Recognizing string can be multiple for a conference / journal, as the `booktitle` / `journal` filed may differ.
+## 生成引用格式
 
-One can modify or add entries to the `JC_ABBR` on his own need. If an `UNRECOGNISED CONFERENCE/JOURNAL: ...` exception arise, one should add an entry to `JC_ABBR` to support that conference / journal.
+生成的引用格式由所使用的解析器（parser）的 `gen_ref` 函数决定。parser 在 *parsers/* 下定义，*parsers/base.py* 是 parser 类的基类。
 
-Notes that both `<ABBR>` and `<RECSTR_*>` are case insensitive, see the `parse_booktitle` function for details.
+*parsers/ComputerEngineering.py* 是[计算机工程](http://www.ecice06.com/CN/1000-3428/home.shtml)期刊的例子，其格式要求见其[参考文献著录格式](http://www.ecice06.com/attached/file/20190617/20190617114639_479.docx)。
 
-## format of reference string
+# 论文作者模式
 
-The parsed structural information is stored in a `Cite` object (see the `Cite` class for details), and the ref string is generated based on it in the `gen_ref` function. For custom ref string format, re-write it.
+目前支持的作者模式有以下几种。可以在 `parse_author` 函数里添加新的支持。
 
-## title style
-
-The title is processed by the `parse_title` and `parse_hyphen_word` function. Generally, they try to capitalize each word, **except**:
-
-- Pascal-case words, like `WordNet`, as they’re usually proper nouns
-- all-caps words, like `R-CNN`, also proper nouns
-- some *stop words* listed in `STOP_WORD`, such as the prepositions and articles
-- the word after a *prefix* listed in `PREFIX`, like the *supervised* in *semi-supervised*, as it’s treated as one word
-- *suffixes* listed in `SUFFIX`
-
-Notes that the first word is **always** capitalized. 
-
-See these two functions for details and re-write them for customization if needed.
-
-# Author Patterns
-
-Here are some patterns (and some corresponding examples) of author name I’ve met. One may add more in the `parse_author` function if that’s not supported currently.
-
-`<F>` stands for *family name*, `<M>` for *middle name*, `<G>` for *given name*, `[·]` for *optional*.
+`<F>`：姓（family name），`<M>`：中间名（middle name），`<G>`：名（given name），`[·]`：可有可无。
 
 1. `<F>, <G> [<short M>.]`
    - `author = {Miller, George A.}`
@@ -111,12 +61,13 @@ Here are some patterns (and some corresponding examples) of author name I’ve m
 2. `<short G>. [<short M>.] {<F>}`
    - `author={Y. {Chen} and L. {Wang} and W. {Wang} and Z. {Zhang}}`
    - `author={A. {Sharma} and A. {Kumar} and H. {Daume} and D. W. {Jacobs}}`
-3. `{<G> <F>}`
+3. `[{]<G> <F>[}]`
 
-# To-dos
+# TODO
 
-- add support to Chinese character
+1. 支持中文 bibtex
 
-# References
+# 参考
 
 1. [由bibtex生成引用文献字符串](https://blog.csdn.net/HackerTom/article/details/113802147)
+
