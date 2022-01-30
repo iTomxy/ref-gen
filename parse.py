@@ -9,7 +9,7 @@ from parsers import ComputerEngineeringParser
 
 
 parser = argparse.ArgumentParser(description='ref')
-parser.add_argument('-f', type=str, nargs='+', default=["bib.txt"],
+parser.add_argument('-f', type=str, nargs='+', default=["bib.bib"],
                     help="input bibtex file or folder")
 parser.add_argument('-o', type=str, default="ref.txt",
                     help="output file of reference strings")
