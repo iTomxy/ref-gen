@@ -1,10 +1,9 @@
 @echo off
 setlocal enabledelayedexpansion
-REM cls
 
-for %%f in (bib/*.txt) do (
-	REM echo %%f
-	python parse.py -f bib/%%f -o ref.txt -a
-)
+cls
 
-start ref.txt
+python parse.py -f 0.bib1.bib bib -o ref.txt -s --n_name 3
+REM python parse.py -f bib/ -o ref.txt -s --n_name 3 -v
+
+REM start ref.txt
