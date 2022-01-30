@@ -192,5 +192,4 @@ events.out.tfevents.*
 
 # for this repo
 *.txt
-!bib.txt
-!bib1.txt
+*.bib
